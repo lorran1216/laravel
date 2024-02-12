@@ -19,6 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post("/movies", [MovieController::class, 'createRegister']);
+Route::post("/movies", [MovieController::class, 'store']);
 
 Route::get("/tvshow", "App\Http\Controllers\TvshowController@index");

@@ -7,15 +7,22 @@ use App\Models\Movie;
 
 class MovieController extends Controller
 {
+    #return all the movies in a view
     public function index(){
         $movs = Movie::all();
         return view('filmes', ['movs' => $movs]);
     }
 
-    public function createRegister(Request $request){
-        $data = $request->all();
+    #validate the data
+    public function store(Request $request){
+        $validate = $request->validate([
+            'title' => 'required|unique:movies|max:255',
+            'release_date' => 'required',
+            'duration' => 'required|integer',
+            'description' => 'required'
+        ]);
 
-        Movie::create($data);
+        Movie::create($validate);
 
         return response()->json(['mensagem' => 'Alright', 201]);
     }
